@@ -1,0 +1,34 @@
+name: CT_REGISTRATION
+description: |
+  This workflow performs the registration of CT images to an MNI template. It includes the following steps:
+  - Takes input channels for CT images and MNI template.
+  - Uses the REGISTRATION_CT_TO_MNI module to register the CT images to the MNI template.<
+  - Emits the transformed images and the warped CT images.<
+keywords:
+  - Registration
+  - Transformation
+  - CT
+  - MNI
+components:
+  - registration/ct_to_mni
+
+inputs:
+  - ch_ct:
+      description: Channel containing CT images and their metadata.
+      type: channel
+  - ch_mni_template:
+      description: Channel containing MNI template image and metadata.
+      type: channel
+
+outputs:
+  - transfo_image:
+      description: Channel containing the affine transformation.
+      type: channel
+  - ct_warped:
+      description: Channel containing the warped CT images.
+      type: channel
+  - versions:
+      description: Channel containing the versions information in a YAML format.
+      type: channel
+authors:
+  - "@GuillaumeTh"

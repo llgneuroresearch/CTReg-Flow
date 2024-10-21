@@ -1,0 +1,58 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/scilus/nf-neuro/main/modules/meta-schema.json
+name: "registration_ct_to_mni"
+description: CT scan image registration to MNI space
+keywords:
+  - nifti
+  - registration
+  - anatomical
+  - dwi
+
+tools:
+  - "antsRegistration":
+      description: "ANTs (Advanced Normalization Tools) open-source software package for image registration and segmentation"
+      homepage: "https://github.com/ANTsX/ANTs/wiki/Compiling-ANTs-on-Linux-and-Mac-OS"
+      documentation: "http://stnava.github.io/ANTsDoc/"
+      doi: "10.1016/j.neuroimage.2010.09.025"
+
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+
+  - ct:
+      type: file
+      description: Nifti image file to register to MNI space.
+      pattern: "*.{nii,nii.gz}"
+
+  - mni_template:
+      type: file
+      description: Nifti image file - MNI template
+      pattern: "*.{nii,nii.gz}"
+
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. `[ id:'test', single_end:false ]`
+
+  - transfo_image:
+      type: list
+      description: Affine transformation file (mat file)
+      pattern: "*.{mat}"
+
+  - ct_warped:
+      type: file
+      description: CT scan image warped to MNI space
+      pattern: "*.{nii,nii.gz}"
+
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+
+authors:
+  - "@GuillaumeTh"

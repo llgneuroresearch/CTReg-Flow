@@ -1,0 +1,52 @@
+name: "pipeline_initialisation"
+description: |
+  Subworkflow to initialize the pipeline by setting up input channels and preparing the environment.
+
+  ---------  Steps  --------------------
+  1. Read input CT images and MNI template.
+  2. Create channels for input data and versions.
+keywords:
+  - Initialization
+  - CT images
+  - MNI template
+input:
+  - input:
+      type: directory
+      description: |
+        The input channel containing the CT images.
+        Structure: input/SID/ct.nii.gz
+      pattern: "**/*ct.nii.gz"
+  - mni_template:
+      type: file
+      description: |
+        The input channel containing the MNI template.
+        Structure: path(mni_template)
+      pattern: "*.{nii,nii.gz}"
+  - outdir:
+      type: directory
+      description: |
+        The output directory where results will be stored.
+        Structure: path(outdir)
+output:
+  - input:
+      type: file
+      description: |
+        Channel containing the CT images.
+        Structure: [ val(meta), path(ct_image) ]
+      pattern: "*.{nii,nii.gz}"
+  - mni_template:
+      type: file
+      description: |
+        Channel containing the MNI template.
+        Structure: [ path(mni_template) ]
+      pattern: "*.{nii,nii.gz}"
+  - versions:
+      type: file
+      description: |
+        File containing software versions.
+        Structure: [ path(versions.yml) ]
+      pattern: "versions.yml"
+authors:
+  - "@GuillaumeTh"
+maintainers:
+  - "@GuillaumeTh"
