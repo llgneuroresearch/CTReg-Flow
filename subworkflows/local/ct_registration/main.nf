@@ -17,6 +17,7 @@ workflow CT_REGISTRATION {
     emit:
     transfo_image = REGISTRATION_CT_TO_MNI.out.transfo_image    // channel: [ val(meta), [ affine ] ]
     ct_warped = REGISTRATION_CT_TO_MNI.out.ct_warped            // channel: [ val(meta), [ image ] ]
+    ct_qc = REGISTRATION_CT_TO_MNI.out.ct_qc                    // channel: [ val(meta), [ image ] ]
 
     versions = ch_versions                                      // channel: [ versions.yml ]
 }

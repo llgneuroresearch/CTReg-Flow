@@ -14,6 +14,7 @@ process REGISTRATION_CT_TO_MNI {
     output:
     tuple val(meta), path("*0GenericAffine.mat")    , emit: transfo_image
     tuple val(meta), path("*ct_warped.nii.gz")      , emit: ct_warped
+    tuple val(meta), path("*ct_qc.nii.gz")          , emit: ct_qc
     path "versions.yml"                             , emit: versions
 
     when:
@@ -47,10 +48,12 @@ process REGISTRATION_CT_TO_MNI {
     mv outputWarped.nii.gz ${prefix}__ct_warped.nii.gz
     mv output0GenericAffine.mat ${prefix}__output0GenericAffine.mat
 
+    mrcat ${prefix}__ct_warped.nii.gz ${mni_template} ${prefix}__ct_qc.nii.gz
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ants: 2.4.3
+        mrtrix: 3.0.4
     END_VERSIONS
     """
 
@@ -62,10 +65,12 @@ process REGISTRATION_CT_TO_MNI {
 
     touch ${prefix}__ct_warped.nii.gz
     touch ${prefix}__output0GenericAffine.mat
+    touch ${prefix}__ct_qc.nii.gz
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         ants: 2.4.3
+        mrtrix: 3.0.4
     END_VERSIONS
     """
 }

@@ -27,6 +27,9 @@ outputs:
   - ct_warped:
       description: Channel containing the warped CT images.
       type: channel
+  - ct_qc:
+      description: Channel containing the 4D image for quality control.
+      type: channel
   - versions:
       description: Channel containing the versions information in a YAML format.
       type: channel

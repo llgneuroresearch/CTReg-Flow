@@ -27,7 +27,7 @@ workflow CT_REGISTRATION_TO_MNI {
     emit:
     ct_warped = CT_REGISTRATION.out.ct_warped // channel: [ val(meta), [ image ] ]
     transfo_image = CT_REGISTRATION.out.transfo_image // channel: [ val(meta), [ affine ] ]
-
+    ct_qc = CT_REGISTRATION.out.ct_qc // channel: [ val(meta), [ image ] ]
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

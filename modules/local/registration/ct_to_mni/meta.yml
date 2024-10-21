@@ -49,6 +49,11 @@ output:
       description: CT scan image warped to MNI space
       pattern: "*.{nii,nii.gz}"
 
+  - ct_qc:
+      type: file
+      description: 4D image (CT + mni template) to do quality control
+      pattern: "*.{nii.gz}"
+
   - versions:
       type: file
       description: File containing software versions
