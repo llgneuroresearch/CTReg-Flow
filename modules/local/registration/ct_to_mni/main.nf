@@ -9,7 +9,7 @@ process REGISTRATION_CT_TO_MNI {
         'scilus/scilus:1.6.0' }"
 
     input:
-    tuple val(meta), path(ct), path(mni_template)
+    tuple val(meta), path(ct), path(mni_template), path(mni_bet)
 
     output:
     tuple val(meta), path("*0GenericAffine.mat")    , emit: transfo_image
@@ -42,6 +42,7 @@ process REGISTRATION_CT_TO_MNI {
         --smoothing-sigmas 3x2x1x0\
         --transform Affine['0.2']\
         --metric MI[$mni_template,$ct,1,32,Regular,0.25]\
+        --metric MI[$mni_bet,$ct,1,32,Regular,0.25]\
         --convergence [500x250x125x50,1e-6,10] --shrink-factors 8x4x2x1\
         --smoothing-sigmas 3x2x1x0
 

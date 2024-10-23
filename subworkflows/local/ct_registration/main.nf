@@ -6,12 +6,14 @@ workflow CT_REGISTRATION {
     take:
     ch_ct              // channel: [ val(meta), [ ct ] ]
     ch_mni_template    // channel: [ val(meta), [ mni_template ] ]
+    ch_mni_bet
 
     main:
 
     ch_versions = Channel.empty()
+    ch_test = ch_mni_template.concat(ch_mni_bet).toList()
 
-    REGISTRATION_CT_TO_MNI ( ch_ct.combine(ch_mni_template) )
+    REGISTRATION_CT_TO_MNI ( ch_ct.combine(ch_test) )
     ch_versions = ch_versions.mix(REGISTRATION_CT_TO_MNI.out.versions.first())
 
     emit:

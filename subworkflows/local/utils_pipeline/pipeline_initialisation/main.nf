@@ -37,6 +37,7 @@ workflow PIPELINE_INITIALISATION {
     take:
     input           // path
     mni_template    // path
+    mni_bet         // path
     outdir          // path
 
     main:
@@ -52,10 +53,12 @@ workflow PIPELINE_INITIALISATION {
                         }
     
     mni_channel = Channel.fromPath("$mni_template")
+    mni_bet_channel = Channel.fromPath("$mni_bet")
 
     emit:
     input = ct_channel              // channel: [ val(meta), [ bam ] ]
     mni_template = mni_channel      // channel: [ val(meta), [ bam ] ]
+    mni_bet = mni_bet_channel       // channel: [ val(meta), [ bam ] ]
     versions = ch_versions          // channel: [ versions.yml ]
 }
 

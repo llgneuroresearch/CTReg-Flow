@@ -13,6 +13,7 @@ workflow CT_REGISTRATION_TO_MNI {
     take:
     ct              // channel: [ val(meta), [ ct ] ]
     mni_template    // channel: [ val(meta), [ mni_template ] ]
+    mni_bet         // channel: [ val(meta), [ mni_bet ] ]
 
     main:
 
@@ -21,7 +22,8 @@ workflow CT_REGISTRATION_TO_MNI {
     //
     CT_REGISTRATION (
         ct,
-        Channel.from(file(params.mni_template))
+        mni_template.first(),
+        mni_bet.first()
     )
 
     emit:
@@ -44,6 +46,7 @@ workflow {
     PIPELINE_INITIALISATION (
         params.input,
         params.mni_template,
+        params.mni_bet,
         params.output_dir,
     )
 
@@ -52,6 +55,7 @@ workflow {
     //
     CT_REGISTRATION_TO_MNI (
         PIPELINE_INITIALISATION.out.input,
-        PIPELINE_INITIALISATION.out.mni_template.first()
+        PIPELINE_INITIALISATION.out.mni_template,
+        PIPELINE_INITIALISATION.out.mni_bet
     )
 }
